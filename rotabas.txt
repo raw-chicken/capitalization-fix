@@ -6,4 +6,5 @@
 " teng":" Teng", " i'm": " I'm", "city b":"city B", "jiakai":"Jiakai", "jiayang":"Jiayang", "gao yi":"Gao Yi",
 "qiao ya":"Qiao Ya", "yunhang":"Yunhang", " han ":" Han ", "xiangyun antique-store":"Xiangyun Antique-Store",
 "city r":"city R"," wang ":" Wang ", "kouzi":"Kouzi", "colaine":"Colaine", "changkai":"Changkai",
-"colorful jade provider":"Colorful Jade Provider", "wenling":"Wenling"}
+"colorful jade provider":"Colorful Jade Provider", "wenling":"Wenling", "bai lin":"Bai Lin",
+"lu zhan":"Lu Zhan", "infinite horror":"Infinite Horror", "su tongnuo":"Su Tongnuo"}

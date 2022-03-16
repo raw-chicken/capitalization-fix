@@ -1,10 +1,15 @@
 import re
 import json
+from nltk.corpus import words
+from nltk.corpus import wordnet
 
 # Random variables
 type1 = 'utf_8'
-chapters = {'988','991'} 
+chapters = {'997'} 
 novel_cap = 'rotabas.txt'
+
+# Word checker
+
 
 # Custom capitlization that works with punctuation
 def capitalize(text):
@@ -15,6 +20,29 @@ def capitalize(text):
             split_with_punctuation[i] = j[0].upper() + j[1:]
     text = ''.join(split_with_punctuation)
     return text
+
+def replace(line):
+    if '</p>' in line:
+        ind = line.index('</p>')
+        line = '\n'.join([line[:ind],capitalize(line[ind+299:])])
+    if '<p><strong>' in line:
+        line = line.replace('<p><strong>', '').replace('</strong>', '')
+    if '<p>' in line:
+        line = line.replace('<p>', '')
+    if len(line) > 0 and line[0] == ' ':
+        line = line[1:]
+
+    return line
+
+def check(line):
+    clean = re.sub('\W+',' ', line)
+    cleanwords = clean.split(' ')
+    for word in cleanwords:
+        word = wordnet.morphy(word)
+        if word is None:
+            continue
+        if word not in words.words():
+            print("Unknown word:", word) 
 
 
 
@@ -31,7 +59,7 @@ for c in chapters:
         text = f.read()
 
     with open(file_out, 'w', encoding=type1, errors='ignore') as f:
-        text = text.lower().replace('</p><p>', '\n').replace('“','"')
+        text = text.lower().replace('</p><p>', '\n').replace('“', '"')
         for key in list.keys():
             text = text.replace(key, list[key])
         
@@ -41,15 +69,9 @@ for c in chapters:
         for line in lines:
             if '<strong><strong>' in line:
                 continue
-            if '</p>' in line:
-                ind = line.index('</p>')
-                line = '\n'.join([line[:ind],capitalize(line[ind+299:])])
-            if '<p><strong>' in line:
-                line = line.replace('<p><strong>','').replace('</strong>','')
-            if len(line) > 0 and line[0] == ' ':
-                line = line[1:]
+            line = capitalize(replace(line))
+            # check(line)
                 
-            line = capitalize(line)
             f.write(line + '\n')
 
         
